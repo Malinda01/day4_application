@@ -26,6 +26,9 @@ public class DrinkDBHelper extends SQLiteOpenHelper {
 
         this.addSomeData(db, "Kolakanda", "Energy Drink");
         this.addSomeData(db, "Koththamalli", "Good for health");
+
+        this.updateData(db, 1, "Paspanguwa", "Energy Drink 2");
+
     }
 
 
@@ -47,13 +50,19 @@ public class DrinkDBHelper extends SQLiteOpenHelper {
     }
 
     // Update Description in the database
-    public void updateData(SQLiteDatabase db, int id, String DrinksName, String description) {
+    public void updateData(SQLiteDatabase db, int id, String DrinksName, String UpdatedDescription) {
         ContentValues contentValues = new ContentValues();
 
 //        contentValues.put("DrinksName", DrinksName);
-        contentValues.put("description", description);
+        contentValues.put("description", UpdatedDescription);
 
-        db.update("Drinks", contentValues, "DrinksName = ?", new String[]{"Pepsi"});
+        db.update("Drinks", contentValues, "DrinksName = ? OR ", new String[]{DrinksName});
+
+    }
+
+    // Delete data from the database
+    public void deleteData(SQLiteDatabase db, String DrinksName) {
+        db.delete("Drinks", "DrinksName = ?", new String[]{DrinksName});
 
     }
 
